@@ -7,9 +7,9 @@ SECTIONS
 _text_start = .;
 .text : {
     *(.text.boot)
-    *(.text.guest)  /* ← ДОДАЙ ЯВНО ПЕРЕД *(.text*) */
+    *(.text.guest) 
     *(.text*)
-    KEEP(*(.text.guest))  /* ← І ДОДАЙ KEEP */
+    KEEP(*(.text.guest)) 
 }
 _text_end = .;
     
