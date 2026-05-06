@@ -119,12 +119,6 @@ Connect UART on GPIO 14/15 (115200 baud). See `rpi_test/README.txt` for flashing
 ---
 
 
-### Raspberry Pi 4
-
-Copy `rpi_test/kernel8.img` and `rpi_test/config.txt` to a FAT32 SD card. Connect UART on GPIO 14/15 (115200 baud). See `rpi_test/README.txt`.
-
----
-
 ## Background
 
 ARM has 4 privilege levels (EL0–EL3). This runs at EL2 which is the hypervisor level — above the OS but below secure monitor. Stage-2 translation lets the hypervisor control what physical memory guests can see.
