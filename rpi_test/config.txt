@@ -1,0 +1,5 @@
+arm_64bit=1
+enable_uart=1  
+uart_baud=115200
+kernel_old=1
+disable_commandline_tags=1
