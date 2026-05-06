@@ -49,12 +49,75 @@ make run    # run on QEMU
 make clean  # clean build artifacts
 ```
 
-Should print something like:
+### QEMU output
+
 ```
-Hypervisor started!
-EL2 initialized
-...
+=================================
+ARM Hypervisor v0.1
+=================================
+--- System Information ---
+Exception Level: EL2
+Processor MPIDR: 0x0000000080000000
+Stack Pointer: 0x0000000040004FC0
+--------------------------
+[OK] Running in EL2
+[INIT] Configuring hypervisor...
+  CPTR_EL2: 0 (no traps)
+  CNTHCTL_EL2: 3 (EL1 timer access)
+  HCR_EL2: 0x0000000080002039
+[OK] Hypervisor configured
+  64-bit VM: Enabled
+  WFI trap: Enabled
+  Exception routing: Enabled
+  HVC: Enabled
+[OK] Exceptions ready
+[VM] Guest context allocated
+  Size: 288 bytes
+[PERF] Boot time: 5118 microseconds
+=== Hypercall Interface Test ===
+[API] HVC_VERSION -> 0x0000000000010000
+[API] HVC_GET_CPU_ID -> CPU0
+[OK] Hypercall API verified (7 services)
+*** HYPERVISOR INITIALIZED ***
+Ready to accept VM in EL1
+Hypercall interface operational
 ```
+
+### Raspberry Pi 4 output
+
+```
+=================================
+ARM Hypervisor v0.1
+=================================
+--- System Information ---
+Exception Level: EL2
+Processor MPIDR: 0x0000000080000000
+Stack Pointer: 0x0000000000097FC0
+--------------------------
+[OK] Running in EL2
+[INIT] Configuring hypervisor...
+  HCR_EL2: 0x0000000080002038
+[OK] Hypervisor configured
+[OK] Exceptions ready
+[VM] Guest context allocated
+  Size: 288 bytes
+[PERF] Boot time: 81261 microseconds
+[VM] ERET -> EL1 guest at 0x0000000000081000
+[HVC] VERSION -> 0x00010000
+[HVC] GET_CPU_ID -> CPU0
+[HVC] EXIT - guest requested shutdown
+=== Hypercall Statistics ===
+Total calls: 5
+============================
+*** HYPERVISOR INITIALIZED ***
+Guest exited cleanly from EL1
+Trap-and-emulate cycle complete
+```
+
+Connect UART on GPIO 14/15 (115200 baud). See `rpi_test/README.txt` for flashing instructions.
+
+---
+
 
 ### Raspberry Pi 4
 
