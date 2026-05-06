@@ -72,4 +72,4 @@ Main motivation was embedded/IoT use cases where you want isolation between task
 
 ## Author
 
-@bdsenjoyer, Kyiv, 2025
+@bdsenjoyer, Kyiv, 2026
