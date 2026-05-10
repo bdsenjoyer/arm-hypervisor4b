@@ -5,7 +5,12 @@ LD = aarch64-linux-gnu-ld
 CFLAGS = -ffreestanding -nostdlib -Wall -Wextra
 LDFLAGS = -T hypervisor.ld
 
-OBJS = src/boot/entry.o src/core/main.o src/core/uart.o src/core/hypervisor.o src/arch/arm64/exceptions.o src/core/cpu_info.o src/core/memory_info.o src/core/vm.o src/core/hypercall.o
+OBJS = src/boot/entry.o src/core/main.o src/core/uart.o \
+       src/core/hypervisor.o src/arch/arm64/exceptions.o \
+       src/core/cpu_info.o src/core/memory_info.o \
+       src/core/vm.o src/core/hypercall.o \
+       src/guest/entry.o src/guest/main.o src/guest/scheduler.o \
+       src/guest/hypercalls.o src/guest/tasks.o
 
 all: hypervisor.bin
 
@@ -43,8 +48,23 @@ src/core/hypercall.o: src/core/hypercall.c
 src/core/guest.o: src/core/guest.S
 	$(AS) -c src/core/guest.S -o src/core/guest.o
 
+src/guest/entry.o: src/guest/entry.S
+	$(AS) -c src/guest/entry.S -o src/guest/entry.o
+
+src/guest/main.o: src/guest/main.c
+	$(CC) $(CFLAGS) -Iinclude -c src/guest/main.c -o src/guest/main.o
+
+src/guest/scheduler.o: src/guest/scheduler.c
+	$(CC) $(CFLAGS) -Iinclude -c src/guest/scheduler.c -o src/guest/scheduler.o
+
+src/guest/hypercalls.o: src/guest/hypercalls.c
+	$(CC) $(CFLAGS) -Iinclude -c src/guest/hypercalls.c -o src/guest/hypercalls.o
+
+src/guest/tasks.o: src/guest/tasks.c
+	$(CC) $(CFLAGS) -Iinclude -c src/guest/tasks.c -o src/guest/tasks.o
+
 clean:
-	rm -f src/boot/*.o src/core/*.o hypervisor.elf hypervisor.bin
+	rm -f src/boot/*.o src/core/*.o hypervisor.elf hypervisor.bin src/guest/*.o
 
 run:
 	qemu-system-aarch64 \
